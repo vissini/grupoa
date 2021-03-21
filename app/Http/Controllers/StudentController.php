@@ -24,6 +24,7 @@ class StudentController extends Controller
      */
     public function index(Request $request)
     {
+        dd($request);
         $per_page = (int) $request->get('per_page', 15);
 
         $students = $this->studentService->getAllStudents($per_page);
@@ -40,6 +41,7 @@ class StudentController extends Controller
     public function store(StudentFormRequest $request)
     {
         $data = $request->all();
+        dd($data);
 
         $student = $this->studentService
                             ->createNewStudent($data);
