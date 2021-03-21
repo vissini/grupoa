@@ -3,9 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Student;
-use App\Services\StudentService;
 use Illuminate\Http\Request;
+use App\Services\StudentService;
 use App\Http\Resources\StudentResource;
+use App\Http\Requests\StudentFormRequest;
 
 class StudentController extends Controller
 {
@@ -31,24 +32,21 @@ class StudentController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StudentFormRequest $request)
     {
-        //
+        $data = $request->all();
+
+        $student = $this->studentService
+                            ->createNewStudent($data);
+
+        return (new StudentResource($student))
+                    ->response()
+                    ->setStatusCode(201);
     }
 
     /**
@@ -63,26 +61,22 @@ class StudentController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(StudentFormRequest $request, $id)
     {
-        //
+        $data = $request->all();
+
+        $student = $this->studentService
+                            ->updateStudent($id, $data);
+
+        return (new StudentResource($student))
+                    ->response()
+                    ->setStatusCode(202);
     }
 
     /**
@@ -93,6 +87,11 @@ class StudentController extends Controller
      */
     public function destroy($id)
     {
-        //
+        if ($this->studentService->destroyStudent($id)) {
+            return response()->json(['message' => 'Student deleted'], 204);
+        } else {
+            return response()->json(['message' => 'Error to delete Student'], 400);
+        }
+
     }
 }

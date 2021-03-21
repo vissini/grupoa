@@ -24,4 +24,25 @@ class StudentRepository implements StudentRepositoryInterface
         return $this->entity::findOrFail($id);
     }
 
+    public function newStudent($data)
+    {
+        //Se fosse preciso fazer algum tratamento com a data recebida seria aqui
+        return $this->entity->create($data);
+    }
+
+    public function updateStudent($id, $data)
+    {
+        //Se fosse preciso fazer algum tratamento com a data recebida seria aqui
+        $student = $this->entity::findOrFail($id);
+        $result = $student->update($data);
+        return $student;
+    }
+
+    public function destroyStudent($id)
+    {
+        //Se fosse preciso fazer algum tratamento com a data recebida seria aqui
+        $student = $this->entity::findOrFail($id);
+        return $student->delete();
+    }
+
 }
