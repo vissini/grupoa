@@ -18,8 +18,23 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/students/{id}', 'StudentController@show')->name('api.students.show');
-Route::put('/students/{id}', 'StudentController@update')->name('api.students.update');
-Route::delete('/students/{id}', 'StudentController@destroy')->name('api.students.destroy');
-Route::post('/students', 'StudentController@store')->name('api.students.store');
-Route::get('/students', 'StudentController@index')->name('api.students.index');
+Route::get('/students/{id}', function () {
+    return 'SHOW';
+});
+Route::put('/students/{id}', function () {
+    return 'UPDATE';
+});
+Route::delete('/students/{id}', function () {
+    return 'DELETE';
+});
+Route::post('/students', function () {
+    return 'CREATE';
+});
+Route::get('/students', function () {
+    return 'all';
+});
+// Route::get('/students/{id}', 'StudentController@show')->name('api.students.show');
+// Route::put('/students/{id}', 'StudentController@update')->name('api.students.update');
+// Route::delete('/students/{id}', 'StudentController@destroy')->name('api.students.destroy');
+// Route::post('/students', 'StudentController@store')->name('api.students.store');
+// Route::get('/students', 'StudentController@index')->name('api.students.index');
