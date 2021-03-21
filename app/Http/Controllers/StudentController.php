@@ -40,7 +40,6 @@ class StudentController extends Controller
     public function store(StudentFormRequest $request)
     {
         $data = $request->all();
-        dd($data);
 
         $student = $this->studentService
                             ->createNewStudent($data);
